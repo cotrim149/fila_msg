@@ -12,7 +12,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
-#define KEY 0x123
+#define KEY 123
 #define SIZE_MSG 1000
 
 enum type_msg {NORMAL,URGENTE};
@@ -63,9 +63,13 @@ int main()
 	
 //	int size_command = 100;
 	char command[20];
-	sprintf(command,"ipcrm -Q %x",KEY);
+	sprintf(command,"ipcrm -Q 0x000000%x",KEY);
 	printf("Command: %s\n\n",command);
-	//execl("/bin/ls","",NULL,NULL);
+
+	if(system(command) != -1)
+		printf("Comando executado com sucesso!\n");
+	else
+		printf("Erro de comando!\n");
 	return(0);
 }
 
